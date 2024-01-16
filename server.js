@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-app.use(...);
+//app.use(...);
 
 const db = require("./app/models")
 db.mongoose
@@ -14,6 +14,10 @@ db.mongoose
     .then(() => {
         console.log("Connected to the database.");
     })
+    .catch( err => {
+        console.log("Cannot connect to the database.", err);
+        process.exit;
+    });
 
 var corsOptions = {
   origin: "http://localhost:8081",
