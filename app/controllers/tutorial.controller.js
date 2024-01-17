@@ -78,15 +78,19 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Tutorial.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(
-    (data) => {
+  Tutorial.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update Tutorial with id = ${id}. Maybe Tutorial was not found!`,
         });
       } else res.send({ message: "Tutorial was updated successfully." });
-    }
-  );
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id = " + id,
+      });
+    });
 };
 
 //Delete all Tutorials from the database
