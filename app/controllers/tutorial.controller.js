@@ -30,9 +30,29 @@ exports.create = (req, res) => {
         });
 };
 
+//Retrieve all Tutorials from the databse
+exports.findAll = (req, res) => {
+    const title = req.body.title;
+    var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+
+    Tutorial.find(condition)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 
+                    err.message || "Some error occured while retrieving tutorials."
+            });
+        });
+};
+
 //Find a single Tutorial with an id 
 exports.findOne = (req, res) => {
+    const id = req.params.id;
 
+    Tutorial.findById(id)
+        .then
 };
 
 //Update a Tutorial by the id in the request 
