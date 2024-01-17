@@ -18,7 +18,16 @@ exports.create = (req, res) => {
 
     //Save Tutorial in the database
     tutorial
-        .save
+        .save(tutorial)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 
+                    err.message || "Some error occured while creating the Tutorial."
+            });
+        });
 };
 
 //Find a single Tutorial with an id 
