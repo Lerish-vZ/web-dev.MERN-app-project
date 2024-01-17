@@ -53,17 +53,41 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findById(id).then((data) => {
-    if (!data) {
-      res.status(404).send({ message: "Not found Tutorial with id " + id });
-    } else {
-      res.send(data);
-    }
-  });
+  Tutorial.findById(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Not found Tutorial with id " + id });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Tutorial with id = " + id });
+    });
 };
 
 //Update a Tutorial by the id in the request
-exports.update = (req, res) => {};
+exports.update = (req, res) => {
+  if (!req.bod) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+
+  Tutorial.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(
+    (data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Tutorial with id = ${id}. Maybe Tutorial was not found!`,
+        });
+      } else res.send({ message: "Tutorial was updated successfully." });
+    }
+  );
+};
 
 //Delete all Tutorials from the database
 exports.deleteAll = (req, res) => {};
