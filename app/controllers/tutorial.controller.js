@@ -93,6 +93,25 @@ exports.update = (req, res) => {
     });
 };
 
+//Delete a Tutorial with the specified id in the request
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Tutorial.findByIdAndRemove(id, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Tutorial with id = ${id}. Maybe Tutorial was not found!`,
+        });
+      } else res.send({ message: "Tutorial was deleted successfully!" });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Tutorial with id = " + id,
+      });
+    });
+};
+
 //Delete all Tutorials from the database
 exports.deleteAll = (req, res) => {};
 
