@@ -1,36 +1,43 @@
 const express = require("express");
-// const bodyParser = require("body-parser"); /* deprecated */
+//body-parser helps to parse the request and create the req.body object
+const bodyParser = require("body-parser");
+//cors provides Express middleware to enable CORS with various options.
 const cors = require("cors");
-
+const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "https://tutorial-project12.netlify.app"
 };
 
 app.use(cors(corsOptions));
 
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+
 // parse requests of content-type - application/json
-app.use(express.json()); /* bodyParser.json() is deprecated */
+app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(
-  express.urlencoded({ extended: true })
-); /* bodyParser.urlencoded() is deprecated */
-
-const db = require("./app/models");
-db.sequelize.sync();
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-require("./app/routes/turorial.routes")(app);
+require("./app/routes/tutorial.routes")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
