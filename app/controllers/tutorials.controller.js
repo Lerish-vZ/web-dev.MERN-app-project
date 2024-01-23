@@ -20,10 +20,10 @@ exports.create = (req, res) => {
     // Save Tutorial in the database
     tutorial
       .save(tutorial)
-      .then(data => {
+      .then((data) => {
         res.send(data);
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while creating the Tutorial."
@@ -38,10 +38,10 @@ exports.findAll = (req, res) => {
     var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
 
     Tutorial.find(condition)
-      .then(data => {
+      .then((data) => {
         res.send(data);
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving tutorials."

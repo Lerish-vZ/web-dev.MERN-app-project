@@ -1,12 +1,12 @@
 // This Mongoose Model represents tutorials collection in MongoDB database. These fields will be generated automatically 
 // for each Tutorial document: _id, title, description, published, createdAt, updatedAt, __v.
 
-module.exports = mongoose => {
+module.exports = (mongoose) => {
     var schema = mongoose.Schema(
       {
         title: String,
         description: String,
-        published: Boolean
+        published: Boolean,
       },
       { timestamps: true }
     );

@@ -7,11 +7,16 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://tutorial-project12.netlify.app"
+  origin: "https://localhost:8080" //Check
 };
 
 app.use(cors(corsOptions));
 
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -24,12 +29,6 @@ db.mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
