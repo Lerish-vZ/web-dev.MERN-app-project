@@ -7,7 +7,7 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://localhost:8080" //Check
+  origin: "https://localhost:8081" //Check
 };
 
 app.use(cors(corsOptions));
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-require("./app/routes/tutorial.routes")(app);
+require("./app/routes/turorial.routes.js")(app);
 
 
 // set port, listen for requests
