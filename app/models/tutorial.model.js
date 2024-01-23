@@ -1,36 +1,15 @@
-module.exports = mongoose => {
-  var schema = mongoose.Schema(
-    {
-      title: String,
-      description: String,
-      published: Boolean
+module.exports = (sequelize, Sequelize) => {
+  const Tutorial = sequelize.define("tutorial", {
+    title: {
+      type: Sequelize.STRING
     },
-    { timestamps: true }
-  );
-
-  schema.method("toJSON", function() {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
+    description: {
+      type: Sequelize.STRING
+    },
+    published: {
+      type: Sequelize.BOOLEAN
+    }
   });
 
-  const Tutorial = mongoose.model("tutorial", schema);
   return Tutorial;
 };
-
-
-
-
-// module.exports = mongoose => {
-//   const Tutorial = mongoose.model(
-//     "tutorial",
-//     mongoose.Schema(
-//       {
-//         title: String,
-//         description: String,
-//         published: Boolean
-//       },
-//       { timestamps: true }
-//     )
-//   );
-//     }
