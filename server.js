@@ -7,7 +7,7 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://lvz-web-dev-bezkoder-app-frontend.netlify.app/" //Check
+  origin: "https://tutorial-project12.netlify.app"
 };
 
 app.use(cors(corsOptions));
