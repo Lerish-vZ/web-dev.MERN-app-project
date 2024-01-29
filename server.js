@@ -7,7 +7,7 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://lvz-web-dev-tutorial-app.netlify.app/" //Check
+  origin: "https://candid-manatee-7cff43.netlify.app/" //Check
 };
 
 app.use(cors(corsOptions));
