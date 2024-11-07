@@ -7,7 +7,7 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://lvz-web-dev-tutorial-frontend.netlify.app"
+  origin: "https://lvz-web-dev-tutorial-frontend.netlify.app/"
 };
 
 app.use(cors(corsOptions));
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-require("./app/routes/turorial.routes.js")(app);
+require("./app/routes/tutorial.routes.js")(app);
 
 
 // set port, listen for requests
